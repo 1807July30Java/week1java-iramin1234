@@ -3,6 +3,7 @@ package com.revature.eval.java.core;
 import java.time.temporal.Temporal;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 public class EvaluationService {
 
@@ -36,7 +37,8 @@ public class EvaluationService {
 		for ( String x : split){
 			acronym += x.charAt(0);
 		}
-		System.out.println(acronym);
+		acronym = acronym.toUpperCase();
+		// System.out.println(acronym);
 		return acronym;
 	}
 
@@ -90,18 +92,25 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
-			return false;
+
+			return (this.sideOne == this.sideTwo &&
+				this.sideOne == this.sideThree &&
+				this.sideTwo == this.sideThree);
 		}
 
 		public boolean isIsosceles() {
 			// TODO Write an implementation for this method declaration
-			return false;
+			return (this.sideOne == this.sideTwo ||
+				this.sideOne == this.sideThree ||
+				this.sideTwo == this.sideThree);
+	
 		}
 
 		public boolean isScalene() {
 			// TODO Write an implementation for this method declaration
-			return false;
+			return (this.sideOne != this.sideTwo &&
+				this.sideOne != this.sideThree &&
+				this.sideTwo != this.sideThree);
 		}
 
 	}
@@ -123,6 +132,50 @@ public class EvaluationService {
 	 */
 	public int getScrabbleScore(String string) {
 		// TODO Write an implementation for this method declaration
+
+		HashMap<Character, Integer> map = new HashMap<>();
+		String onePoint = "AEIOULNRST";
+		String twoPoint = "DG";
+		String threePoint = "BCMP";
+		String fourPoint = "FHVWY";
+		String fivePoint = "K";
+		String eightPoint = "JX";
+		String tenPoint = "QZ";
+		
+		for (int i = 0; i < onePoint.length();i++) {
+			map.put(onePoint.charAt(i), 1);
+		}
+		for (int i = 0; i < twoPoint.length();i++) {
+			map.put(twoPoint.charAt(i), 2);
+		}
+		for (int i = 0; i < threePoint.length();i++) {
+			map.put(threePoint.charAt(i), 3);
+		}
+		for (int i = 0; i < fourPoint.length();i++) {
+			map.put(fourPoint.charAt(i), 4);
+		}
+		for (int i = 0; i < fivePoint.length();i++) {
+			map.put(fivePoint.charAt(i), 5);
+		}
+		for (int i = 0; i < eightPoint.length();i++) {
+			map.put(eightPoint.charAt(i), 8);
+		}
+		for (int i = 0; i < tenPoint.length();i++) {
+			map.put(tenPoint.charAt(i), 10);
+		}
+		
+		string = string.toUpperCase();
+		Integer score = 0;
+
+		for(int i = 0; i<string.length();i++) {
+			Character character = string.charAt(i);
+			character = Character.toUpperCase(character);
+			Integer currentScore = map.get(character);
+			score += currentScore;
+			
+		}
+		//System.out.println(score);
+		
 		return 0;
 	}
 
