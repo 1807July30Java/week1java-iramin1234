@@ -32,6 +32,8 @@ public class EvaluationService {
 	 */
 	public String acronym(String phrase) {
 		// TODO Write an implementation for this method declaration
+		// split the words and remove '-' 
+		phrase = phrase.replaceAll("-", " ");
 		String[] split = phrase.split(" ");
 		String acronym = "";
 		for ( String x : split){
@@ -133,6 +135,12 @@ public class EvaluationService {
 	public int getScrabbleScore(String string) {
 		// TODO Write an implementation for this method declaration
 
+		/*
+			I used a hashtable for practice, could have also done this
+			in a switch statement matching each case letter and adding the score
+			corresponding to it.
+		*/
+
 		HashMap<Character, Integer> map = new HashMap<>();
 		String onePoint = "AEIOULNRST";
 		String twoPoint = "DG";
@@ -176,7 +184,7 @@ public class EvaluationService {
 		}
 		//System.out.println(score);
 		
-		return 0;
+		return score;
 	}
 
 	/**
@@ -211,8 +219,36 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		// TODO Write an implementation for this method declaration/*
+
+		// remove all special characters and white spaces
+		String modifiedString = new String();
+		modifiedString = string.replaceAll("\\+", "");
+		modifiedString = modifiedString.replaceAll("-", "");
+		modifiedString = modifiedString.replaceAll("\\(", "");
+		modifiedString = modifiedString.replaceAll("\\)", "");
+		modifiedString = modifiedString.replaceAll(" ", "");
+		modifiedString = modifiedString.replaceAll("\\.", "");
+		
+		
+		// check if it's greaters than 10 numbers
+		if (modifiedString.length() > 11)
+			 throw new IllegalArgumentException();
+		//check to see if there are any charcters like 'abc'
+		if(!modifiedString.matches("[0-9]+")){
+			throw new IllegalArgumentException();
+		}
+		//remove the first number if it's a 1
+		if (modifiedString.length() == 11) {
+			if(modifiedString.charAt(0) == '1') {
+				modifiedString = modifiedString.substring(1);
+			}
+			else {
+				throw new IllegalArgumentException();
+			}
+			
+		}
+		return modifiedString;
 	}
 
 	/**
